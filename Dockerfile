@@ -1,13 +1,13 @@
-FROM python:3.10.11-bullseye
+FROM python:3.10.11-slim
 
 EXPOSE 7865
-
+RUN mkdir -p /app
 WORKDIR /app
 
 COPY . .
 
-RUN pip3 install poetry
+RUN poetry export -f requirements.txt --output requirements.txt
 RUN apt update && apt install build-essential
-RUN poetry install
+RUN pip install -r requirements.txt
 
-CMD ["python3", "poetry", "run", "train-api.py"]
+CMD ["python3", "train-api.py"]
