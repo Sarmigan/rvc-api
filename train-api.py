@@ -132,6 +132,10 @@ def click_train(
 
 app = FastAPI()
 
+@app.get("/")
+async def root():
+    return {"status": "200"}
+
 @app.get("/train")
 async def train(exp_dir1: str,
                 sr2: int,
@@ -158,6 +162,6 @@ async def train(exp_dir1: str,
                 pretrained_D15=pretrained_D15,
                 gpus16=gpus16,
                 if_cache_gpu17=if_cache_gpu17)
-    
+
 if __name__ == "__main__":
-    uvicorn.run(app=app, port=config.listen_port, log_level="info")
+    uvicorn.run("train-api:app", host="0.0.0.0", port=config.listen_port, log_level="info")
