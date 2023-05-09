@@ -1,6 +1,2 @@
-.DS_Store
-__pycache__
-/TEMP
-*.pyd
+.venv
 hubert_base.pt
-/logs
