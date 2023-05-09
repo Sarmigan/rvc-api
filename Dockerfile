@@ -7,8 +7,8 @@ WORKDIR /app
 COPY . .
 
 RUN pip3 install poetry
-RUN sudo apt update
-RUN sudo apt install build-essential
+RUN apt update
+RUN apt install build-essential
 RUN poetry install
 RUN poetry shell
 
