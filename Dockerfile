@@ -6,9 +6,4 @@ WORKDIR /app
 
 COPY . .
 
-RUN apt update && apt install build-essential -y
-RUN pip install poetry
-RUN poetry export -f requirements.txt --output requirements.txt
-RUN pip install -r requirements.txt
-
-CMD ["python", "train-api.py", "--port", "7865"]
+CMD ["./setup.sh"]

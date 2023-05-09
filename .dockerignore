@@ -1,1 +1,7 @@
+.gitignore
 .venv
+.github
+.python-version
+hubert_base.pt
+uvr5_weights
+pretrained
