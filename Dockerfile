@@ -8,6 +8,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip3 install -r requirements.txt
+RUN pip3 install poetry
+RUN poetry install
+RUN poetry shell
 
-CMD ["python3", "infer-web.py"]
+CMD ["uvicorn", "train-api:app", "--host", "0.0.0.0", "--port", "7865"]

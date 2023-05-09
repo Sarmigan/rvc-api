@@ -53,6 +53,7 @@ absl-py = "^1.4.0"
 audioread = "^3.0.0"
 uvicorn = "^0.21.1"
 colorama = "^0.4.6"
+fastapi = {extras = ["all"], version = "^0.95.1"}
 
 [tool.poetry.dev-dependencies]
 
