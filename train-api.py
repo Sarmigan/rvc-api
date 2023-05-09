@@ -2,6 +2,7 @@ import os
 from subprocess import Popen
 from random import shuffle
 from fastapi import FastAPI
+import uvicorn
 from i18n import I18nAuto
 from config import Config
 config = Config()
@@ -157,3 +158,6 @@ async def train(exp_dir1: str,
                 pretrained_D15=pretrained_D15,
                 gpus16=gpus16,
                 if_cache_gpu17=if_cache_gpu17)
+    
+if __name__ == "__main__":
+    uvicorn.run(app=app, port=config.listen_port, log_level="info")
