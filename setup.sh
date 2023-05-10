@@ -31,8 +31,8 @@ HB=$ROOT_DIR/hubert_base.pt
 DLHB=https://huggingface.co/lj1995/VoiceConversionWebUI/resolve/main/hubert_base.pt
 
 sudo apt install build-essential -y && apt update -y || exit
-pip install --user poetry || exit
-poetry export -f requirements.txt --output requirements.txt || exit
+curl -sSL https://install.python-poetry.org | python3 - || exit
+~/.local/bin/poetry export -f requirements.txt --output requirements.txt || exit
 pip install --user -r requirements.txt || exit
 
 mkdir -p $PRETRAINED_DIR
@@ -54,31 +54,7 @@ do
     fi
 done
 
-if [ ! -f ${HP2} ]
-then
-    if wget -P ${UVR5_WEIGHTS} -q ${DLHP2}
-    then
-        echo SUCCESSFUL ${HP2} DOWNLOAD
-    else
-        echo FAILED ${HP2} DOWNLOAD
-        exit
-    fi
-else
-    echo ${HP2} EXISTS
-fi
-
-if [ ! -f ${HP5} ]
-then
-    if wget -P ${UVR5_WEIGHTS} -q ${DLHP5}
-    then
-        echo SUCCESSFUL ${HP5} DOWNLOAD
-    else
-        echo FAILED ${HP5} DOWNLOAD
-        exit
-    fi
-else
-    echo ${HP5} EXISTS
-fi
+# ADD HP2 AND HP5
 
 if [ ! -f ${HB} ]
 then

@@ -2,6 +2,7 @@
 .venv
 .github
 .python-version
+/.git
 hubert_base.pt
 uvr5_weights
 pretrained
