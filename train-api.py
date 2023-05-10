@@ -9,21 +9,21 @@ config = Config()
 
 class TrainParams:
     def __init__(self,
-                 exp_dir1: Query(str, description="Folder name (Must have no spaces and be unique)", example="custom_aditya"),
-                 sr2: Query(str, description="Sample rate (32k, 40k or 48k)", example="32k"),
-                 if_f0_3: Query(str, description="Extract pitch information (yes or no)", example="yes"),
-                 trainset_dir4: Query(str, description="Directory of training data (Must have no spaces)", example="/app/data/custom_aditya"),
-                 spk_id5: Query(int, description="Identifier for the speaker", example="0"),
-                 np7: Query(str, description=f"Number of cpu threads for pitch extraction (0-{cpu_count()})", example=f"{cpu_count()}"),
-                 f0method8: Query(str, description="Method for extracting pitch information (pm, harvest or dio)", example="harvest"),
-                 save_epoch10: Query(str, description="Save every nth epoch (0-50)", example="5"),
-                 total_epoch11: Query(str, description="Number of epochs (0-1000)", example="150"),
-                 batch_size12: Query(str, description="Batch size (1-40)", example="1"),
-                 if_save_latest13: Query(str, description="Save only latest checkpoint (yes or no)", example="yes"),
-                 pretrained_G14: Query(str, description="Directory of pretrained G (Must have no spaces)", example="/app/pretrained/f0G40k.pth"),
-                 pretrained_D15: Query(str, description="Directory of pretrained D (Must have no spaces)", example="/app/pretrained/f0D40k.pth"),
-                 gpus16: Query(str, description="Card numbers used (Seperated by -, for example 0-1-2)", example="0"),
-                 if_cache_gpu17: Query(str, description="Cache dataset into GPU memory (yes or no)", example="no")):
+                 exp_dir1: str = Query(description="Folder name (Must have no spaces and be unique)", example="custom_aditya"),
+                 sr2: str = Query(description="Sample rate (32k, 40k or 48k)", example="32k"),
+                 if_f0_3: str = Query(description="Extract pitch information (yes or no)", example="yes"),
+                 trainset_dir4: str = Query(description="Directory of training data (Must have no spaces)", example="/app/data/custom_aditya"),
+                 spk_id5: int = Query(description="Identifier for the speaker", example="0"),
+                 np7: str = Query(description=f"Number of cpu threads for pitch extraction (0-{cpu_count()})", example=f"{cpu_count()}"),
+                 f0method8: str = Query(description="Method for extracting pitch information (pm, harvest or dio)", example="harvest"),
+                 save_epoch10: str = Query(description="Save every nth epoch (0-50)", example="5"),
+                 total_epoch11: str = Query(description="Number of epochs (0-1000)", example="150"),
+                 batch_size12: str = Query(description="Batch size (1-40)", example="1"),
+                 if_save_latest13: str = Query(description="Save only latest checkpoint (yes or no)", example="yes"),
+                 pretrained_G14: str = Query(description="Directory of pretrained G (Must have no spaces)", example="/app/pretrained/f0G40k.pth"),
+                 pretrained_D15: str = Query(description="Directory of pretrained D (Must have no spaces)", example="/app/pretrained/f0D40k.pth"),
+                 gpus16: str = Query(description="Card numbers used (Seperated by -, for example 0-1-2)", example="0"),
+                 if_cache_gpu17: str = Query(description="Cache dataset into GPU memory (yes or no)", example="no")):
         self.exp_dir1 = exp_dir1
         self.sr2 = sr2
         self.if_f0_3 = if_f0_3
