@@ -5,5 +5,3 @@ RUN mkdir -p /app
 WORKDIR /app
 
 COPY . .
-
-CMD ["./setup.sh"]

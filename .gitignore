@@ -1,2 +1,4 @@
 .venv
 hubert_base.pt
+pretrained
+uvr5_weights
