@@ -1,7 +1,7 @@
 from infer_web import train1key
 from typing import Annotated
 from multiprocessing import cpu_count
-from fastapi import FastAPI, Depends, Query
+from fastapi import FastAPI, Depends, Query, BackgroundTasks
 import uvicorn
 
 from config import Config
@@ -40,15 +40,11 @@ class TrainParams:
         self.gpus16 = gpus16
         self.if_cache_gpu17 = if_cache_gpu17
 
-app = FastAPI()
+progress_updates = []
+training_in_progress = False
 
-@app.get("/")
-async def root():
-    return {"status": "200"}
-
-@app.get("/train")
-async def train(commons: Annotated[TrainParams, Depends(TrainParams)]):
-    train1key(
+def train_and_report(commons: Annotated[TrainParams, Depends(TrainParams)]):
+    generator = train1key(
         commons.exp_dir1,
         commons.sr2,
         commons.if_f0_3,
@@ -65,7 +61,33 @@ async def train(commons: Annotated[TrainParams, Depends(TrainParams)]):
         commons.gpus16,
         commons.if_cache_gpu17
     )
-    return
+    for value in generator:
+        if isinstance(value, str):
+            progress_updates.append(value)
+
+app = FastAPI()
+
+@app.get("/")
+async def root():
+    return {"status": 200}
+
+@app.get("/train")
+async def train(commons: Annotated[TrainParams, Depends(TrainParams)], background_tasks: BackgroundTasks):
+    if training_in_progress:
+        return {"status": 250}
+    else:
+        training_in_progress = True
+        progress_updates.clear()
+        background_tasks.add_task(train_and_report)
+        return {"status": 201}
+
+@app.get("/train/status")
+async def train_status():
+    if training_in_progress:
+        return {"status": 430}
+    else:
+        progress = "\n".join(progress_updates)
+        return {"progress": progress}
 
 if __name__ == "__main__":
     uvicorn.run("train-api:app", host="0.0.0.0", port=config.listen_port, log_level="info")
